@@ -7,7 +7,7 @@ const feedbackRoutes = require('./routes/feedback');
 const app = express();
 
 // ENV VARS (You should set MONGODB_URI in a real app)
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/feedback-db';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://AnubhavSingh99:PasswordFeedbackdb@cluster0.bfiilri.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
 app.use(cors());
 app.use(express.json());

@@ -1,18 +1,4 @@
-
-export type FeedbackCategory = 
-  | "Bug Report" 
-  | "Feature Request" 
-  | "Improvement" 
-  | "Question" 
-  | "Other";
-
-export type FeedbackStatus = 
-  | "New" 
-  | "In Progress" 
-  | "Completed" 
-  | "Declined";
-
-export type FeedbackItem = {
+export interface FeedbackItem {
   id: string;
   title: string;
   description: string;
@@ -23,18 +9,21 @@ export type FeedbackItem = {
   updatedAt: Date;
   createdBy?: string;
   assignedTo?: string;
-  comments?: FeedbackComment[];
-};
+  comments: FeedbackComment[];
+}
 
-export type FeedbackComment = {
-  id: string;
+export interface FeedbackComment {
   content: string;
-  createdAt: Date;
   createdBy: string;
-};
+  createdAt: Date;
+}
 
-export type FeedbackStats = {
+export type FeedbackCategory = "Bug Report" | "Feature Request" | "Improvement" | "Question" | "Other";
+
+export type FeedbackStatus = "New" | "In Progress" | "Completed" | "Declined";
+
+export interface FeedbackStats {
   total: number;
   byCategory: Record<FeedbackCategory, number>;
   byStatus: Record<FeedbackStatus, number>;
-};
+}
