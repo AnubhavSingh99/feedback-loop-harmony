@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useFeedback } from "@/contexts/FeedbackContext";
 import { FeedbackCategory } from "@/types/feedback";
@@ -56,15 +55,12 @@ export function FeedbackForm() {
 
   const onSubmit = (data: FormData) => {
     setIsSubmitting(true);
-    // In a real app, this would call an API to save to MongoDB
     addFeedback({
       title: data.title,
       description: data.description,
       category: data.category as FeedbackCategory,
       status: "New",
     });
-    
-    // Reset form
     form.reset();
     setIsSubmitting(false);
   };
@@ -78,16 +74,16 @@ export function FeedbackForm() {
   ];
 
   return (
-    <Card className="w-full">
+    <Card className="w-full max-w-3xl mx-auto shadow-lg rounded-lg">
       <CardHeader>
-        <CardTitle>Submit Feedback</CardTitle>
-        <CardDescription>
+        <CardTitle className="text-2xl font-bold">Submit Feedback</CardTitle>
+        <CardDescription className="text-gray-600">
           Share your thoughts, suggestions, or report issues.
         </CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
               control={form.control}
               name="title"
@@ -114,7 +110,7 @@ export function FeedbackForm() {
                   <FormControl>
                     <Textarea
                       placeholder="Provide more details about your feedback..."
-                      className="min-h-32"
+                      className="min-h-40"
                       {...field}
                     />
                   </FormControl>
@@ -137,7 +133,7 @@ export function FeedbackForm() {
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger className="border border-gray-300 hover:border-gray-400 focus:ring-2 focus:ring-primary">
                         <SelectValue placeholder="Select a category" />
                       </SelectTrigger>
                     </FormControl>
@@ -157,7 +153,11 @@ export function FeedbackForm() {
               )}
             />
 
-            <Button type="submit" disabled={isSubmitting} className="w-full">
+            <Button 
+              type="submit" 
+              disabled={isSubmitting} 
+              className="w-full py-3 text-lg font-semibold transition-colors duration-300 hover:bg-primary/90"
+            >
               {isSubmitting ? "Submitting..." : "Submit Feedback"}
             </Button>
           </form>

@@ -14,16 +14,28 @@ interface FeedbackCardProps {
 }
 
 export function FeedbackCard({ feedback, onSelect }: FeedbackCardProps) {
-  const { upvoteFeedback } = useFeedback();
+  const { upvoteFeedback, deleteFeedback } = useFeedback();
   
   const handleUpvote = (e: React.MouseEvent) => {
     e.stopPropagation();
     upvoteFeedback(feedback.id);
   };
+
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (window.confirm("Are you sure you want to delete this feedback?")) {
+      deleteFeedback(feedback.id);
+    }
+  };
+
+  const handleEdit = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    alert("Edit feature coming soon!"); // Placeholder for edit functionality
+  };
   
   return (
     <Card 
-      className="w-full transition-all hover:shadow-md cursor-pointer"
+      className="w-full transition-all hover:shadow-lg cursor-pointer"
       onClick={() => onSelect?.(feedback.id)}
     >
       <CardHeader className="pb-2">
@@ -34,6 +46,14 @@ export function FeedbackCard({ feedback, onSelect }: FeedbackCardProps) {
               <CategoryBadge category={feedback.category} />
               <StatusBadge status={feedback.status} />
             </div>
+          </div>
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm" onClick={handleEdit} aria-label="Edit feedback">
+              Edit
+            </Button>
+            <Button variant="destructive" size="sm" onClick={handleDelete} aria-label="Delete feedback">
+              Delete
+            </Button>
           </div>
         </div>
       </CardHeader>
@@ -49,6 +69,7 @@ export function FeedbackCard({ feedback, onSelect }: FeedbackCardProps) {
           size="sm" 
           className="flex items-center gap-1"
           onClick={handleUpvote}
+          aria-label="Upvote feedback"
         >
           <ThumbsUp className="h-4 w-4" />
           <span>{feedback.votes}</span>
